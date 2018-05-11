@@ -2,4 +2,6 @@
 
 Recorder of my study road. LOL
 
-[Homepage](http://dreamdarker.top)
+[Homepage(now is Mystery)](http://dreamdarker.top)
+
+[SOSCON](http://soscon.top)
