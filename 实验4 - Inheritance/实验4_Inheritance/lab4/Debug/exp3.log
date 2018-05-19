@@ -1,0 +1,5 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(387,5): warning MSB8028: 中间目录(.\Debug\)包含从另一个项目(exp1.vcxproj)共享的文件。   这会导致错误的清除和重新生成行为。
+  exp3.cpp
+c:\users\12084\desktop\实验4 - inheritance\实验4_inheritance\lab4\exp3.cpp(17): warning C4305: “参数”: 从“double”到“float”截断
+c:\users\12084\desktop\实验4 - inheritance\实验4_inheritance\lab4\exp3.cpp(18): warning C4305: “参数”: 从“double”到“float”截断
+  exp3.vcxproj -> C:\Users\12084\Desktop\实验4 - Inheritance\实验4_Inheritance\lab4\.\Debug\exp3.exe
