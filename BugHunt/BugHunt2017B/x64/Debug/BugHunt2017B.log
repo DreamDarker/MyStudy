@@ -1,6 +1,0 @@
-﻿  BugHunt2017BView.cpp
-c:\users\12084\desktop\bughunt2017b\bughunt2017b\bughunt2017bview.cpp(80): warning C4244: “=”: 从“double”转换到“int”，可能丢失数据
-c:\users\12084\desktop\bughunt2017b\bughunt2017b\bughunt2017bview.cpp(81): warning C4244: “=”: 从“float”转换到“int”，可能丢失数据
-  BugHunt2017BDoc.cpp
-  正在生成代码...
-  BugHunt2017B.vcxproj -> C:\Users\12084\Desktop\BugHunt2017B\x64\Debug\BugHunt2017B.exe
