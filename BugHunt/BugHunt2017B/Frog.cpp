@@ -65,12 +65,16 @@ void Frog::Move(char m_idirect)
 
 void Frog::Move()
 {
+	m_rcSprite.OffsetRect(m_nStepX, m_nStepY);
 }
 
 void Frog::Eat(Bug *pBug)
 {
-	if (m_rcSprite.PtInRect(pBug->GetRC().CenterPoint))
-	{
 
+	POINT center = pBug->GetRC().CenterPoint();
+
+	if (m_rcSprite.PtInRect(center))
+	{
+		pBug->Eaten();
 	}
 }

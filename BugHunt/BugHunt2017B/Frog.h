@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Bug.h"
 
 class Frog: public Sprite
 {
@@ -11,7 +12,7 @@ public:
 	void ChangeDirection(int idx);		// [0-1]
 	void Move(char m_idirect);
 	void Move();
-	void Eat(Bug *pBug);
+	void Eat(Bug * pBug);
 
 private:
 	int m_iCurrentDir;      // 现在的方向

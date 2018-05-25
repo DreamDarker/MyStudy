@@ -17,6 +17,8 @@ public:
 	void ChangeDirection();
 	virtual void Move() = 0;
 
+	void Eaten();
+
 protected:
 	int  GetCurrDir()const{ return m_iCurrentDir; }
 	void SetCurrDir(int iDirection){ m_iCurrentDir = iDirection; }

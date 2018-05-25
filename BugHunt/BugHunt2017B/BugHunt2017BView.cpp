@@ -35,6 +35,8 @@ BEGIN_MESSAGE_MAP(CBugHunt2017BView, CView)
 ON_WM_CREATE()
 ON_WM_LBUTTONDOWN()
 ON_WM_KEYDOWN()
+//ON_WM_ACTIVATE()
+ON_WM_LBUTTONUP()
 END_MESSAGE_MAP()
 
 // CBugHunt2017BView 构造/析构
@@ -184,6 +186,30 @@ void CBugHunt2017BView::OnTimer(UINT_PTR nIDEvent)
 			Invalidate();
 			break;
 	}
+
+	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
+	{
+		if (pDoc->m_listFrog[i] == NULL)
+			continue;
+
+		for (size_t j = 0; j < pDoc->m_listBug.size(); ++j)
+		{
+			if (pDoc->m_listBug[j] == NULL)
+				continue;
+
+			if (pDoc->m_listFrog[i]->GetRC().PtInRect(pDoc->m_listBug[j]->GetRC().CenterPoint()))
+			{
+				pDoc->m_listBug[j]->Eaten();
+			}
+
+			if (pDoc->m_listBug[j]->IsDying())
+			{
+				delete pDoc->m_listBug[j];
+				pDoc->m_listBug[j] = NULL;				// 没有指向对象的指针必须置为空
+				break;
+			}
+		}
+	}
 	CView::OnTimer(nIDEvent);
 }
 
@@ -220,8 +246,7 @@ void CBugHunt2017BView::OnLButtonDown(UINT nFlags, CPoint point)
 	}
 
 	// Frog鼠标控制 TODO
-
-
+	
 	CView::OnLButtonDown(nFlags, point);
 }
 
@@ -258,8 +283,21 @@ void CBugHunt2017BView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 			}
 		}
 
-	// Frog吃虫子
-
-
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
+}
+
+
+//void CBugHunt2017BView::OnActivate(UINT nState, CWnd* pWndOther, BOOL bMinimized)
+//{
+//	CView::OnActivate(nState, pWndOther, bMinimized);
+//
+//	// TODO: 在此处添加消息处理程序代码
+//}
+
+
+void CBugHunt2017BView::OnLButtonUp(UINT nFlags, CPoint point)
+{
+	// TODO: 在此添加消息处理程序代码和/或调用默认值
+
+	CView::OnLButtonUp(nFlags, point);
 }
