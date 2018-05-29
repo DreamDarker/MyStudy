@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "Frog.h"
 #include "Bug.h"
+#include <WinUser.h>
+#include <math.h>
 
 Frog::Frog(const CString & strBitmapFile, int nRow, int nCol, int nMoveStep)
 {
@@ -21,20 +23,22 @@ void Frog::ChangeDirection(int idx)
 	SetPictureIdx(idx);
 }
 
-void Frog::Move(char m_idirect)
+void Frog::Move(UINT nChar)				// ¼üÅÌMove
 {
-	switch (m_idirect)
+	switch (nChar)
 	{
-	case 'L' :
+	case 0x25 :
+		ChangeDirection(1);
 		m_rcSprite.OffsetRect(-m_nMoveStep, 0);
 		break;
-	case 'R' :	
+	case 0x27 :	
+		ChangeDirection(0);
 		m_rcSprite.OffsetRect(m_nMoveStep, 0);
 		break;
-	case 'U':
+	case 0x26 :
 		m_rcSprite.OffsetRect(0, -m_nMoveStep);
 		break;
-	case 'D':
+	case 0x28 :
 		m_rcSprite.OffsetRect(0, m_nMoveStep);
 		break;
 	}
@@ -61,6 +65,19 @@ void Frog::Move(char m_idirect)
 	{
 		m_rcSprite.OffsetRect(0, -yOff);
 	}
+}
+
+void Frog::Move(CPoint point)			// Êó±êMove
+{
+	int x_del = point.x - m_rcSprite.CenterPoint().x;
+	int y_del = point.y - m_rcSprite.CenterPoint().y;
+
+	if (x_del > 0) ChangeDirection(0);
+	else ChangeDirection(1);
+
+	int x_off = m_nMoveStep * x_del / sqrt(x_del*x_del + y_del*y_del);
+	int y_off = m_nMoveStep * y_del / sqrt(y_del*y_del + y_del*y_del);
+	m_rcSprite.OffsetRect(x_off, y_off);
 }
 
 void Frog::Move()

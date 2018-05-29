@@ -55,7 +55,7 @@ void Bug::ChangeDirection()
 
 void Bug::Eaten()
 {
-	m_iHitsTaken = 10;
+	m_iHitsTaken = 10;		// 吃一次的伤害量
 }
 
 ///////////////////////////////////////////////

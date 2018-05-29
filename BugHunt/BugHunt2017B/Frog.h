@@ -10,7 +10,8 @@ public:
 	virtual ~Frog();
 
 	void ChangeDirection(int idx);		// [0-1]
-	void Move(char m_idirect);
+	void Move(UINT nChar);
+	void Move(CPoint point);
 	void Move();
 	void Eat(Bug * pBug);
 

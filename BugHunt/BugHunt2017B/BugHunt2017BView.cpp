@@ -187,7 +187,7 @@ void CBugHunt2017BView::OnTimer(UINT_PTR nIDEvent)
 			break;
 	}
 
-	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
+	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)		// Frog吃Bug
 	{
 		if (pDoc->m_listFrog[i] == NULL)
 			continue;
@@ -210,6 +210,8 @@ void CBugHunt2017BView::OnTimer(UINT_PTR nIDEvent)
 			}
 		}
 	}
+
+
 	CView::OnTimer(nIDEvent);
 }
 
@@ -245,7 +247,14 @@ void CBugHunt2017BView::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-	// Frog鼠标控制 TODO
+	// Frog鼠标控制
+	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
+	{
+		if (pDoc->m_listFrog[i] == NULL)
+			continue;
+
+		pDoc->m_listFrog[i]->Move(point);
+	}
 	
 	CView::OnLButtonDown(nFlags, point);
 }
@@ -264,23 +273,7 @@ void CBugHunt2017BView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 	for each(auto pFrog in pDoc->m_listFrog)
 		if (pFrog)
 		{
-			switch (nChar)
-			{
-			case VK_LEFT:
-				pFrog->ChangeDirection(1);
-				pFrog->Move('L');
-				break;
-			case VK_RIGHT:
-				pFrog->ChangeDirection(0);
-				pFrog->Move('R');
-				break;
-			case VK_UP:
-				pFrog->Move('U');
-				break;
-			case VK_DOWN:
-				pFrog->Move('D');
-				break;
-			}
+			pFrog->Move(nChar);
 		}
 
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
