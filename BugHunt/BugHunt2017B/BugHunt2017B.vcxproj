@@ -218,8 +218,12 @@
     <None Include="res\BugHunt2017B.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\BlueBug36x36.bmp" />
     <Image Include="res\BugHunt2017B.ico" />
     <Image Include="res\BugHunt2017BDoc.ico" />
+    <Image Include="res\Frog.jpg" />
+    <Image Include="res\FrogBlue.bmp" />
+    <Image Include="res\RedBug96x96.bmp" />
     <Image Include="res\Toolbar.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -91,6 +91,7 @@ void CBugHunt2017BView::OnDraw(CDC* pDC)
 	memDC.SelectObject(&memBmp);
 	memDC.FillSolidRect(0, 0, clientRect.Width(), clientRect.Height(), RGB(255, 255, 255));
 	
+	// BGD绘制
 	pDoc->m_bmpBackgrang.StretchBlt(
 		memDC.GetSafeHdc(),
 		x, y, cx, cy
@@ -103,10 +104,15 @@ void CBugHunt2017BView::OnDraw(CDC* pDC)
 
 	// 绘制青蛙
 	for each(auto pFrog in pDoc->m_listFrog)
-	pFrog->Draw(&memDC);
+		if (pFrog)
+			pFrog->Draw(&memDC);
 
 	pDC->BitBlt(0, 0, clientRect.Width(), clientRect.Height(), &memDC, 0 ,0, SRCCOPY);
 
+	// 介绍
+	CString intro;
+	intro = "按Z吃虫, 方向键上下左右进行操作, 空格无双";
+	pDC->TextOutW(2, 2, intro);
 
 }
 
@@ -185,32 +191,23 @@ void CBugHunt2017BView::OnTimer(UINT_PTR nIDEvent)
 					pBug->Move();
 			Invalidate();
 			break;
+
+		case 2:
+			for each(auto pFrog in pDoc->m_listFrog)
+				if (pFrog)
+					pFrog->SetAP(10);
+			break;
+
+		case 3:
+			for each(auto pFrog in pDoc->m_listFrog)
+				if (pFrog)
+					pFrog->SetAP(4);
+			break;
 	}
 
-	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)		// Frog吃Bug
-	{
-		if (pDoc->m_listFrog[i] == NULL)
-			continue;
+	// Frog吃Bug
 
-		for (size_t j = 0; j < pDoc->m_listBug.size(); ++j)
-		{
-			if (pDoc->m_listBug[j] == NULL)
-				continue;
-
-			if (pDoc->m_listFrog[i]->GetRC().PtInRect(pDoc->m_listBug[j]->GetRC().CenterPoint()))
-			{
-				pDoc->m_listBug[j]->Eaten();
-			}
-
-			if (pDoc->m_listBug[j]->IsDying())
-			{
-				delete pDoc->m_listBug[j];
-				pDoc->m_listBug[j] = NULL;				// 没有指向对象的指针必须置为空
-				break;
-			}
-		}
-	}
-
+	// MFrog吃Bug
 
 	CView::OnTimer(nIDEvent);
 }
@@ -227,35 +224,36 @@ BOOL CBugHunt2017BView::OnEraseBkgnd(CDC* pDC)
 
 void CBugHunt2017BView::OnLButtonDown(UINT nFlags, CPoint point)
 {
+
 	CBugHunt2017BDoc* pDoc = GetDocument();
 	ASSERT_VALID(pDoc);
 	if (!pDoc)
 		return;
 
 	// TODO: 在此添加消息处理程序代码和/或调用默认值
-	for (size_t i = 0; i < pDoc->m_listBug.size(); ++i)
-	{
-		if (pDoc->m_listBug[i] == NULL)
-			continue;
+	
+	// 鼠标点杀Bug
+	//for (size_t i = 0; i < pDoc->m_listBug.size(); ++i)
+	//{
+	//	if (pDoc->m_listBug[i] == NULL)
+	//		continue;
 
 
-		pDoc->m_listBug[i]->IsHit(point);
-		if (pDoc->m_listBug[i]->IsDying())
-		{
-			delete pDoc->m_listBug[i];
-			pDoc->m_listBug[i] = NULL;				// 没有指向对象的指针必须置为空
-		}
-	}
+	//	pDoc->m_listBug[i]->IsHit(point);
+	//	if (pDoc->m_listBug[i]->IsDying())
+	//	{
+	//		delete pDoc->m_listBug[i];
+	//		pDoc->m_listBug[i] = NULL;				// 没有指向对象的指针必须置为空
+	//	}
+	//}
 
 	// Frog鼠标控制
-	for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
-	{
-		if (pDoc->m_listFrog[i] == NULL)
-			continue;
-
-		pDoc->m_listFrog[i]->Move(point);
-	}
-	
+		for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
+		{
+			if (pDoc->m_listFrog[i] == NULL)
+				continue;
+			pDoc->m_listFrog[i]->Move(point);
+		}
 	CView::OnLButtonDown(nFlags, point);
 }
 
@@ -275,6 +273,40 @@ void CBugHunt2017BView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		{
 			pFrog->Move(nChar);
 		}
+
+	switch (nChar)
+	{
+	case 'z':
+	case 'Z':
+		for (size_t i = 0; i < pDoc->m_listFrog.size(); ++i)
+		{
+			if (pDoc->m_listFrog[i] == NULL)
+				continue;
+
+			for (size_t j = 0; j < pDoc->m_listBug.size(); ++j)
+			{
+				if (pDoc->m_listBug[j] == NULL)
+					continue;
+
+				if (pDoc->m_listFrog[i]->GetRC().PtInRect(pDoc->m_listBug[j]->GetRC().CenterPoint()))
+				{
+					pDoc->m_listBug[j]->Eaten(pDoc->m_listFrog[i]->GetAP());
+				}
+
+				if (pDoc->m_listBug[j]->IsDying())
+				{
+					delete pDoc->m_listBug[j];
+					pDoc->m_listBug[j] = NULL;				// 没有指向对象的指针必须置为空
+					break;
+				}
+			}
+		}
+		break;
+	case 0x20:
+		SetTimer(2, 100, NULL);
+		SetTimer(3, 1000 * 10, NULL);
+		break;
+	}
 
 	CView::OnKeyDown(nChar, nRepCnt, nFlags);
 }

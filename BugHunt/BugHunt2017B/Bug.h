@@ -10,6 +10,7 @@ public:
 	virtual ~Bug();
 
 	BOOL IsEat();		// ADDITION
+
 	BOOL IsHit(const CPoint& ptMouse);
 	BOOL IsDying()const { return m_iHitsTaken >= m_nHitsRequared; }
 	void Kill(CDC* pDC) { ; }
@@ -17,7 +18,7 @@ public:
 	void ChangeDirection();
 	virtual void Move() = 0;
 
-	void Eaten();
+	void Eaten(int n);
 
 protected:
 	int  GetCurrDir()const{ return m_iCurrentDir; }

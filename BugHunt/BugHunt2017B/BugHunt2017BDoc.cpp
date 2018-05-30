@@ -33,25 +33,25 @@ CBugHunt2017BDoc::CBugHunt2017BDoc()
 
 	// DID
 
-	m_bmpBackgrang.Load(_T(".\\Bitmap\\Frog.jpg"));
+	m_bmpBackgrang.Load(_T(".\\res\\Frog.jpg"));
 
 	// Add 2 SlowBug objects
 	for (int i = 0; i < 2; i++)
 	{
-		Bug* pBug = new SlowBug(_T(".\\Bitmap\\RedBug96x96.bmp"), 4, 18,  10, 2, 2, 20);
+		Bug* pBug = new SlowBug(_T(".\\res\\RedBug96x96.bmp"), 4, 18,  10, 2, 10, 20);
 		m_listBug.push_back(pBug);
 	}
 
 	// Add 3 FastBug objs
 	for (int i = 0; i < 3; i++)
 	{
-		Bug* pBug = new FastBug(_T(".\\Bitmap\\BlueBug36x36.bmp"), 4, 18, 10, 4, 2, 30);
+		Bug* pBug = new FastBug(_T(".\\res\\BlueBug36x36.bmp"), 4, 18, 10, 4, 4, 30);
 		m_listBug.push_back(pBug);
 	}
 
 	for (int i = 0; i < 1; i++)
 	{
-		Frog* pFrog = new Frog(_T(".\\Bitmap\\FrogBlue.bmp"), 1, 2, 20);
+		Frog* pFrog = new Frog(_T(".\\res\\FrogBlue.bmp"), 1, 2, 30, 4);
 		m_listFrog.push_back(pFrog);
 	}
 }

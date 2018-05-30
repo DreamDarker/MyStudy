@@ -45,6 +45,7 @@ protected:		// DID
 	CImage m_bmpBackgrang;
 	std::vector<Bug*> m_listBug;		
 	std::vector<Frog*> m_listFrog;
+	// std::vector<Frog*> m_listMFrog;
 
 // 生成的消息映射函数
 protected:

@@ -4,13 +4,15 @@
 #include <WinUser.h>
 #include <math.h>
 
-Frog::Frog(const CString & strBitmapFile, int nRow, int nCol, int nMoveStep)
+Frog::Frog(const CString & strBitmapFile, int nRow, int nCol, int nMoveStep, int AP)
 {
 	LoadImage(strBitmapFile, nRow, nCol);
 
 	m_nMoveStep = nMoveStep;
 
 	m_iCurrentDir = 0;
+
+	attack_power = AP;
 }
 
 Frog::~Frog()
@@ -87,11 +89,20 @@ void Frog::Move()
 
 void Frog::Eat(Bug *pBug)
 {
-
-	POINT center = pBug->GetRC().CenterPoint();
+	/*POINT center = pBug->GetRC().CenterPoint();
 
 	if (m_rcSprite.PtInRect(center))
 	{
 		pBug->Eaten();
-	}
+	}*/
+}
+
+int Frog::GetAP()
+{
+	return attack_power;
+}
+
+void Frog::SetAP(int n)
+{
+	attack_power = n;
 }
