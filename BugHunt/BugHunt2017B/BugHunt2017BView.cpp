@@ -195,13 +195,29 @@ void CBugHunt2017BView::OnTimer(UINT_PTR nIDEvent)
 		case 2:
 			for each(auto pFrog in pDoc->m_listFrog)
 				if (pFrog)
-					pFrog->SetAP(10);
+				{
+					CRect now_RC = pFrog->GetRC();
+					pDoc->m_listFrog.pop_back();
+					Frog* pFrog = new Frog(_T(".\\res\\FrogRed.bmp"), 1, 2, 40 ,10);
+					pFrog->SetRC(now_RC);
+					pDoc->m_listFrog.push_back(pFrog);
+					break;
+				}
+			KillTimer(2);
 			break;
-
+			 
 		case 3:
 			for each(auto pFrog in pDoc->m_listFrog)
 				if (pFrog)
-					pFrog->SetAP(4);
+				{
+					CRect now_RC = pFrog->GetRC();
+					pDoc->m_listFrog.pop_back();
+					Frog* pFrog = new Frog(_T(".\\res\\FrogBlue.bmp"), 1, 2, 20, 4);
+					pFrog->SetRC(now_RC);
+					pDoc->m_listFrog.push_back(pFrog);
+					break;
+				}
+			KillTimer(3);
 			break;
 	}
 
@@ -304,7 +320,8 @@ void CBugHunt2017BView::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		break;
 	case 0x20:
 		SetTimer(2, 100, NULL);
-		SetTimer(3, 1000 * 10, NULL);
+		SetTimer(3, 1000 * 4, NULL);
+
 		break;
 	}
 

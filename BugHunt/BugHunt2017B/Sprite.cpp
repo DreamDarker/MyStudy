@@ -23,6 +23,11 @@ const CRect Sprite::GetRC()
 	return m_i;
 }
 
+void Sprite::SetRC(CRect n_rc)
+{
+	m_rcSprite = n_rc;
+}
+
 void Sprite::LoadImage(const CString& strBitmapFile, int nRow, int nCol)
 { 
 	ASSERT(strBitmapFile != "" && nRow > 0 && nCol > 0);

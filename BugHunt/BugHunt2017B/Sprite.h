@@ -23,6 +23,7 @@ public:
 	}
 
 	const CRect GetRC();
+	void SetRC(CRect n_rc);
 protected:
 	void LoadImage(const CString& strBitmapFile, int nRow, int nCol);
 	void SetPictureIdx(int idx);

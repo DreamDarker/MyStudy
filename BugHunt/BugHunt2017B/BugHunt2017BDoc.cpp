@@ -51,7 +51,7 @@ CBugHunt2017BDoc::CBugHunt2017BDoc()
 
 	for (int i = 0; i < 1; i++)
 	{
-		Frog* pFrog = new Frog(_T(".\\res\\FrogBlue.bmp"), 1, 2, 30, 4);
+		Frog* pFrog = new Frog(_T(".\\res\\FrogBlue.bmp"), 1, 2, 20, 4);
 		m_listFrog.push_back(pFrog);
 	}
 }
